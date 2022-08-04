@@ -6,7 +6,8 @@ def is_video_file(filename: str) -> bool:
     filename = filename.lower()
     return filename.endswith('.mp4') or filename.endswith('.mov') or \
            filename.endswith('.wmv') or filename.endswith('.avi') or \
-           filename.endswith('.flv') or filename.endswith('.mkv')
+           filename.endswith('.flv') or filename.endswith('.mkv') or \
+           filename.endswith('.heic')
 
 
 def is_image_file(filename: str) -> bool:
@@ -19,12 +20,16 @@ def is_image_file(filename: str) -> bool:
 def is_text_file(filename: str) -> bool:
     filename = filename.lower()
     return filename.endswith('.txt') or filename.endswith('.docx') or \
-           filename.endswith('.doc') or filename.endswith('.rtf')
+           filename.endswith('.doc') or filename.endswith('.rtf') or filename.endswith('.pdf')
+
+def is_ebook_file(filename: str) -> bool:
+    filename = filename.lower()
+    return filename.endswith('.epub') or filename.endswith('.mobi')
 
 
 def is_executable_file(filename: str) -> bool:
     filename = filename.lower()
-    return filename.endswith('.exe')
+    return filename.endswith('.exe') or filename.endswith('.msi')
 
 
 def is_zipped_file(filename: str) -> bool:
@@ -63,6 +68,9 @@ def organize_downloads_folder():
             elif is_executable_file(name):
                 dest = f'{SOURCE}/Installers/{name}'
                 move_file(src, dest)
+            elif is_ebook_file(name):
+                dest = f'{SOURCE}/Ebooks/{name}'
+                move_file(src,dest)
 
 
 if __name__ == "__main__":
