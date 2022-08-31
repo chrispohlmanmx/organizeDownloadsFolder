@@ -9,6 +9,13 @@ def is_video_file(filename: str) -> bool:
            filename.endswith('.flv') or filename.endswith('.mkv') or \
            filename.endswith('.heic')
 
+def is_audio_file(filename: str) -> bool:
+    filename = filename.lower()
+    return filename.endswith('.mp3') or filename.endswith('.pcm') or filename.endswith('.wav') or \
+           filename.endswith('.aiff') or filename.endswith('.aac') or filename.endswith('.ogg') \
+           or filename.endswith('.wma') or filename.endswith('.flac') or filename.endswith(
+        '.alac')
+
 
 def is_image_file(filename: str) -> bool:
     filename = filename.lower()
@@ -51,6 +58,10 @@ def organize_downloads_folder():
             src = f'{SOURCE}/{name}'
             if is_image_file(name):
                 dest = f'{SOURCE}/Images/{name}'
+                move_file(src, dest)
+
+            elif is_audio_file(name):
+                dest = f'{SOURCE}/Audio/{name}'
                 move_file(src, dest)
 
             elif is_video_file(name):
