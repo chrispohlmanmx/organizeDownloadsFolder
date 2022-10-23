@@ -18,6 +18,8 @@ names of the ones used in the script:
 * Zips
 * Installers
 * Ebooks
+* SpreadSheets
+* SlideShows
 
 Or you can go through and change the destination path in each if and elif statement in the 
 organize_downloads_folder function.

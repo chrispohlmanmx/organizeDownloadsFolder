@@ -44,6 +44,17 @@ def is_zipped_file(filename: str) -> bool:
     return filename.endswith('.zip') or filename.endswith('.rar') or \
            filename.endswith('.7z') or filename.endswith('.tar')
 
+def is_spreadsheet_file(filename: str) -> bool:
+    filename = filename.lower()
+    return filename.endswith('.cts') or filename.endswith('.xlsx') or filename.endswith('.xls') or \
+           filename.endswith('xlsm') or filename.endswith('def') or filename.endswith('.123') or \
+           filename.endswith('.dex') or filename.endswith('.xl') or filename.endswith('.xlr') or \
+           filename.endswith('.ods') or filename.endswith('csv') or filename.endswith('.numbers')
+
+def is_slideshow_file(filename: str) -> bool:
+    filename = filename.lower()
+    return filename.endswith('.ppt') or filename.endswith('.pptx') or filename.endswith('.odp') \
+           or filename.endswith('.pps') or filename.endswith('.ppsx')
 
 def move_file(source: str, dest: str):
     shutil.move(source, dest)
@@ -82,7 +93,12 @@ def organize_downloads_folder():
             elif is_ebook_file(name):
                 dest = f'{SOURCE}/Ebooks/{name}'
                 move_file(src,dest)
-
+            elif is_spreadsheet_file(name):
+                dest = f'{SOURCE}/SpreadSheets/{name}'
+                move_file(src, dest)
+            elif is_slideshow_file(name):
+                dest = f'{SOURCE}/SlideShows/{name}'
+                move_file(src, dest)
 
 if __name__ == "__main__":
     organize_downloads_folder()
