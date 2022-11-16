@@ -9,6 +9,7 @@ def is_video_file(filename: str) -> bool:
            filename.endswith('.flv') or filename.endswith('.mkv') or \
            filename.endswith('.heic')
 
+
 def is_audio_file(filename: str) -> bool:
     filename = filename.lower()
     return filename.endswith('.mp3') or filename.endswith('.pcm') or filename.endswith('.wav') or \
@@ -24,10 +25,16 @@ def is_image_file(filename: str) -> bool:
            filename.endswith('.tiff') or filename.endswith('.psd')
 
 
+def is_markdown_file(filename: str) -> bool:
+    filename = filename.lower()
+    return filename.endswith('.md')
+
+
 def is_text_file(filename: str) -> bool:
     filename = filename.lower()
     return filename.endswith('.txt') or filename.endswith('.docx') or \
            filename.endswith('.doc') or filename.endswith('.rtf') or filename.endswith('.pdf')
+
 
 def is_ebook_file(filename: str) -> bool:
     filename = filename.lower()
@@ -44,6 +51,7 @@ def is_zipped_file(filename: str) -> bool:
     return filename.endswith('.zip') or filename.endswith('.rar') or \
            filename.endswith('.7z') or filename.endswith('.tar')
 
+
 def is_spreadsheet_file(filename: str) -> bool:
     filename = filename.lower()
     return filename.endswith('.cts') or filename.endswith('.xlsx') or filename.endswith('.xls') or \
@@ -51,10 +59,12 @@ def is_spreadsheet_file(filename: str) -> bool:
            filename.endswith('.dex') or filename.endswith('.xl') or filename.endswith('.xlr') or \
            filename.endswith('.ods') or filename.endswith('csv') or filename.endswith('.numbers')
 
+
 def is_slideshow_file(filename: str) -> bool:
     filename = filename.lower()
     return filename.endswith('.ppt') or filename.endswith('.pptx') or filename.endswith('.odp') \
            or filename.endswith('.pps') or filename.endswith('.ppsx')
+
 
 def move_file(source: str, dest: str):
     shutil.move(source, dest)
@@ -62,43 +72,32 @@ def move_file(source: str, dest: str):
 
 def organize_downloads_folder():
     SOURCE = "C:/Users/chris/Downloads"
-
     with os.scandir(SOURCE) as files:
         for file in files:
             name = file.name
             src = f'{SOURCE}/{name}'
+            dest = src #if file doesn't matched defined type don't move it
             if is_image_file(name):
                 dest = f'{SOURCE}/Images/{name}'
-                move_file(src, dest)
-
             elif is_audio_file(name):
                 dest = f'{SOURCE}/Audio/{name}'
-                move_file(src, dest)
-
             elif is_video_file(name):
                 dest = f'{SOURCE}/Videos/{name}'
-                move_file(src, dest)
-
             elif is_text_file(name):
                 dest = f'{SOURCE}/Text/{name}'
-                move_file(src, dest)
-
             elif is_zipped_file(name):
                 dest = f'{SOURCE}/Zips/{name}'
-                move_file(src, dest)
-
             elif is_executable_file(name):
                 dest = f'{SOURCE}/Installers/{name}'
-                move_file(src, dest)
             elif is_ebook_file(name):
                 dest = f'{SOURCE}/Ebooks/{name}'
-                move_file(src,dest)
             elif is_spreadsheet_file(name):
                 dest = f'{SOURCE}/SpreadSheets/{name}'
-                move_file(src, dest)
             elif is_slideshow_file(name):
                 dest = f'{SOURCE}/SlideShows/{name}'
-                move_file(src, dest)
+            elif is_markdown_file(name):
+                dest = f'C:/Users/chris/Documents/Notes'
+            move_file(src, dest)
 
 if __name__ == "__main__":
     organize_downloads_folder()
